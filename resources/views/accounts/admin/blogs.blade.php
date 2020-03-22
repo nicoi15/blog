@@ -30,7 +30,7 @@
             </div>
             
             <!-- Modal -->
-            <div class="modal fade" id="centralModalSuccess" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+            <div class="modal fade" id="adminBlogDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
               aria-hidden="true">
               <div class="modal-dialog modal-notify modal-danger" role="document">
                 <!--Content-->
@@ -48,12 +48,14 @@
                   <div class="modal-body">
                     <div class="text-center">
                       <p>Are you sure you want to delete this post?</p>
+                      
                     </div>
                   </div>
 
                   <!--Footer-->
                   <div class="modal-footer justify-content-center">
                     {!! Form::open(['action' => ['PostsController@destroy', $post->post_id], 'method' => 'POST', 'class' => 'pull-right']) !!}
+                      <input type="hidden" class="form-control" name="postid" id="postid">
                       {{Form::hidden('_method', 'DELETE')}}
                       {{-- <a type="button" class="btn btn-success btn-sm" href="/admin/blogs/{{$post->post_id}}">Yes</a> --}}
                       {{Form::submit('Yes', ['class' => 'btn btn-danger btn-sm'])}}
@@ -72,13 +74,13 @@
                 <div class="row">
                   <a href="/posts/{{$post->post_id}}" class="btn btn-primary btn-sm"> 
                   <i class="far fa-eye mdb-gallery-view-icon mr-3"></i>View</a>
-                  <a href="/posts/{{$post->post_id}}/edit" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#centralModalSuccess">
-                  <i class="far fa-edit mdb-gallery-view-icon mr-3"></i>Remove</a>
+                  <a href="/posts/{{$post->post_id}}/edit" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#adminBlogDelete" data-postid="{{ $post->post_id }}">
+                  <i class="fas fa-trash mdb-gallery-view-icon mr-3"></i>Remove</a>
                 </div>
               @endif
             </div>
         </div>
-        <span class="badge badge-primary float-right"><b>{{ $post->tag() }}</b></span>
+        <span class="badge badge-primary float-right">Tag: <b>{{ $post->tag() }} {{ $post->post_id }}</b></span>
       </div>
       <br />
     @endforeach

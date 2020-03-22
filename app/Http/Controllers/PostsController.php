@@ -91,9 +91,15 @@ class PostsController extends Controller
     {
         $post = Post::find($id);
 
-        $comments = Comment::where('post_id', $id)->paginate(5);
-        // return dd($comments);
-        return view('pages.blogcontent')->with('post', $post)->with('comments', $comments);
+        if ($post->status == 1) {
+
+            $comments = Comment::where('post_id', $id)->paginate(5);
+
+            return view('pages.blogcontent')->with('post', $post)->with('comments', $comments);
+        }
+        else {
+            return redirect()->back();
+        }
     }
 
     /**
@@ -153,12 +159,22 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        $post = Post::find($id);
-        $post->status = '2';
-        $post->save();
-        return redirect('/admin/blogs')->with('success', 'Post has been deleted');
+        $post = Post::find($request->postid);
+
+        if(Auth::user()->role == 1) {
+            $post->status = '2';
+            $post->save();
+            return redirect('/admin/blogs')->with('success', 'Post has been deleted');
+        }
+        else {
+            $post->status = '0';
+            $post->save();
+            return redirect()->back()->with('success', 'Post has been deleted');
+        }
+        
+        
     }
     public function userPosts()
     {

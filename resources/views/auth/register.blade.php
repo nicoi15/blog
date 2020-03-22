@@ -28,13 +28,13 @@
                             <label for="gender" class="col-md-4 col-form-label text-md-right">{{ __('Gender') }}</label>
 
                             <div class="col-md-6">
-                                <select class="browser-default custom-select" id="gender" name="gender">
+                                <select class="browser-default custom-select" id="gender" name="gender" required>
                                     <option value="" disabled selected>Select your gender</option>
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
                                 </select>
 
-                                @error('name')
+                                @error('gender')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

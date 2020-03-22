@@ -18,4 +18,18 @@
     $('.mdb-select').materialSelect();
   });
 </script>
+<script>
+  console.log('hahaha')
+  $('#adminBlogDelete').on('show.bs.modal', function(event) {
+    
+    console.log('Opened');
+    var button = $(event.relatedTarget)
+    var post_id = button.data('postid')
+
+    var modal = $(this)
+    // modal.find('.modal-title').text('New message to ' + recipient)
+    modal.find('.modal-footer #postid').val(post_id)
+  });
+</script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.2.1/trix.js"></script>
