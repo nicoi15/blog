@@ -22,7 +22,7 @@ class PostsController extends Controller
         $tags = Tag::all();
         $selectedTags = [];
         $posts = Post::where('status', '1')->paginate(5);
-        // return dd($posts);
+        
         return view('pages.home')->with('posts', $posts)->with('tags', $tags)->with('selectedTags', $selectedTags);
     }
 
@@ -137,7 +137,7 @@ class PostsController extends Controller
         ]);
 
         $post = Post::find($id);
-        // dd($request->image);
+
         if($request->has('image')) {
             
             $path = Storage::putFile('public', $request->file('image'));
@@ -187,10 +187,9 @@ class PostsController extends Controller
     {
         $selectedTags = $request->tag;
         $tags = Tag::all();
-        // return dd($selectedTags);
-        // $posts = Post::where('status', '1')->paginate(5);
+
         $posts = Post::whereIn('tag_id', $selectedTags)->paginate(5);
-        // return dd($posts);
+
         return view('pages.home')->with('posts', $posts)->with('tags', $tags)->with('selectedTags', $selectedTags);
     }
 }

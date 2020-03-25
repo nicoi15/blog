@@ -12,7 +12,7 @@ class TagsController extends Controller
         $this->validate($request, [
             'tagName' => 'required'
         ]);
-        $tags = new Tag;        
+        $tags = new Tag;  
         
         $tags->tag = $request->tagName;
         $tags->save();
